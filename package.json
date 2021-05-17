@@ -1,0 +1,27 @@
+{
+  "name": "knapsack-simulated-annealing",
+  "version": "1.0.0",
+  "description": "Solving the knapsack problem",
+  "main": "index.js",
+  "dependencies": {
+    "bootstrap": "^4.0.0",
+    "perf_hooks": "^0.0.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-scripts": "^1.1.1",
+    "reactstrap": "^5.0.0-beta.2"
+  },
+  "devDependencies": {
+    "electron": "^1.8.2",
+    "electron-builder": "^20.2.0",
+    "foreman": "^2.0.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "author": "",
+  "license": "ISC"
+}
