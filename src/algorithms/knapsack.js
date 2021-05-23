@@ -18,7 +18,6 @@ class Bag {
   constructor(size, dataset) {
     this.size = size;
     this.itemSet = [];
-    this.currentSolution = [];
 
     for (let i = 0; i < dataset.length; i++) {
       var item = new Item(dataset[i][0], dataset[i][1], i);

@@ -3,18 +3,21 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
   Redirect,
 } from "react-router-dom";
+import GeneticAlgorithm from "./screens/GeneticAlgorithm";
 import SimulatedAnnealing from "./screens/SimulatedAnnealing";
 export default class App extends Component {
   render() {
     return (
       <Router>
-        <Redirect from="/" to="simulated-annealing" />
+        <Redirect from="/" to="genetic-algorithm" />
         <Switch>
           <Route path="/simulated-annealing">
             <SimulatedAnnealing />
+          </Route>
+          <Route path="/genetic-algorithm">
+            <GeneticAlgorithm />
           </Route>
         </Switch>
       </Router>

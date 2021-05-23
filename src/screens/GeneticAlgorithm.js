@@ -1,18 +1,18 @@
 import React, { Component } from "react";
 import { Button, Label, Input, Jumbotron } from "reactstrap";
+import geneticAlgorithm from "../algorithms/genetic-algorithm";
 import { Bag } from "../algorithms/knapsack";
-import simulatedAnnealing from "../algorithms/simulated-annealing";
 
 class InputSection extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      max_weight: 10,
-      start_temperature: 1000,
-      end_temperature: 50,
-      max_iterations_count: 90,
-      cooling_factor: 0.7,
+      max_weight: 11,
+      max_iterations_count: 1000,
+      generation_size: 200,
+      mutation_rate: 0.01,
+      is_elitism: false,
       dataset: [],
       bestSet: [],
       bestValue: null,
@@ -23,12 +23,12 @@ class InputSection extends Component {
 
   onClick = () => {
     const {
-      cooling_factor,
-      start_temperature,
-      end_temperature,
       max_weight,
       max_iterations_count,
+      generation_size,
+      mutation_rate,
       dataset,
+      is_elitism,
     } = this.state;
 
     console.log(dataset);
@@ -36,12 +36,12 @@ class InputSection extends Component {
 
     let t0 = new Date().getTime();
 
-    var best = simulatedAnnealing({
+    var solution = geneticAlgorithm({
       bag,
-      start_temperature,
-      end_temperature,
-      cooling_factor,
       max_iterations_count,
+      generation_size,
+      mutation_rate,
+      is_elitism,
     });
 
     let t1 = new Date().getTime();
@@ -50,21 +50,27 @@ class InputSection extends Component {
       duration: t1 - t0,
     });
 
-    let bestSolution = bag.printSolution(best);
-    console.log("bestSolution", bestSolution);
+    console.log(solution);
+
+    const bestSet = [];
+
+    for (let i = 0; i < solution.genes.length; i++) {
+      const gene = solution.genes[i];
+      if (gene === 1) {
+        bestSet.push(solution.items[i]);
+      }
+    }
 
     this.setState({
-      bestSet: bestSolution.itemSet,
-      bestWeight: bestSolution.itemSet.reduce(
-        (acc, item) => acc + item.weight,
-        0
-      ),
-      bestValue: bestSolution.bestValue,
+      bestSet,
+      bestWeight: solution.totalWeight,
+      bestValue: solution.totalBenefit,
     });
   };
 
   onChange = (type, e) => {
     let value = e.target.value;
+    console.log(value);
     let dataset = [];
     if (type !== "input_file") {
       this.setState({ [type]: value });
@@ -119,28 +125,6 @@ class InputSection extends Component {
         <br />
         <div className="row">
           <div className="col">
-            <Label for="start_temperature">Temperature Initiale</Label>
-            <Input
-              type="number"
-              name="start_temperature"
-              id="start_temperature"
-              value={this.state.start_temperature}
-              onChange={this.onChange.bind(this, "start_temperature")}
-            />
-          </div>
-          <br />
-          <div className="col">
-            <Label for="end_temperature">Temperature Finale</Label>
-            <Input
-              type="number"
-              name="end_temperature"
-              id="end_temperature"
-              value={this.state.end_temperature}
-              onChange={this.onChange.bind(this, "end_temperature")}
-            />
-          </div>
-          <br />
-          <div className="col">
             <Label for="max_iterations_count">Nb Iterations</Label>
             <Input
               type="number"
@@ -152,13 +136,35 @@ class InputSection extends Component {
           </div>
           <br />
           <div className="col">
-            <Label for="cooling_factor">Cooling Factor</Label>
+            <Label for="generation_size">Generation size</Label>
             <Input
               type="number"
-              name="cooling_factor"
-              id="cooling_factor"
-              value={this.state.cooling_factor}
-              onChange={this.onChange.bind(this, "cooling_factor")}
+              name="generation_size"
+              id="generation_size"
+              value={this.state.generation_size}
+              onChange={this.onChange.bind(this, "generation_size")}
+            />
+          </div>
+          <br />
+          <div className="col">
+            <Label for="mutation_rate">Mutation rate</Label>
+            <Input
+              type="number"
+              name="mutation_rate"
+              id="mutation_rate"
+              value={this.state.mutation_rate}
+              onChange={this.onChange.bind(this, "mutation_rate")}
+            />
+          </div>
+          <br />
+          <div className="col">
+            <Label for="is_elitism">Use Elitism</Label>
+            <Input
+              type="checkbox"
+              name="is_elitism"
+              id="is_elitism"
+              value={this.state.is_elitism}
+              onChange={this.onChange.bind(this, "is_elitism")}
             />
           </div>
           <br />
@@ -203,13 +209,13 @@ class InputSection extends Component {
   }
 }
 
-class SimulatedAnnealing extends Component {
+class GeneticAlgorithm extends Component {
   render() {
     return (
       <div className="container">
         <Jumbotron>
           <h1 className="display-9 text-center">
-            Knapsack Problem with Simulated Annealing
+            Knapsack Problem with Genetic Algorithm
           </h1>
         </Jumbotron>
         <InputSection />
@@ -218,4 +224,4 @@ class SimulatedAnnealing extends Component {
   }
 }
 
-export default SimulatedAnnealing;
+export default GeneticAlgorithm;
