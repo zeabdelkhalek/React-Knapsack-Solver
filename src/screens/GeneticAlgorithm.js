@@ -70,10 +70,13 @@ class InputSection extends Component {
 
   onChange = (type, e) => {
     let value = e.target.value;
-    console.log(value);
     let dataset = [];
     if (type !== "input_file") {
-      this.setState({ [type]: value });
+      if (type === "is_elitism") {
+        this.setState({ is_elitism: !this.state.is_elitism });
+      } else {
+        this.setState({ [type]: value });
+      }
     } else {
       let file = e.target.files[0];
 
@@ -157,8 +160,10 @@ class InputSection extends Component {
             />
           </div>
           <br />
-          <div className="col">
-            <Label for="is_elitism">Use Elitism</Label>
+        </div>
+        <br />
+        <div className="row">
+          <div className="col ml-4">
             <Input
               type="checkbox"
               name="is_elitism"
@@ -166,10 +171,10 @@ class InputSection extends Component {
               value={this.state.is_elitism}
               onChange={this.onChange.bind(this, "is_elitism")}
             />
+            <Label for="is_elitism">Use Elitism</Label>
           </div>
           <br />
         </div>
-        <br />
         <Button
           color="primary"
           size="lg"

@@ -14,7 +14,6 @@ const geneticAlgorithm = ({
   mutation_rate,
   generation_size,
 }) => {
-  console.log("is_elitism", is_elitism);
   var population = new Population(bag, mutation_rate, is_elitism);
   generateInitialPopulation(population, generation_size);
   population.calculateFitness();
@@ -28,7 +27,6 @@ const geneticAlgorithm = ({
     population.calculateFitness();
     population.evaluate();
   }
-  console.log(nb_generations);
   return population.best;
 };
 
