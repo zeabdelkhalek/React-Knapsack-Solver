@@ -9,6 +9,7 @@ import {
 import GeneticAlgorithm from "./screens/GeneticAlgorithm";
 import SimulatedAnnealing from "./screens/SimulatedAnnealing";
 import DynamicProgramming from "./screens/DynamicProgramming";
+import Home from "./screens/Home";
 import {
   Nav,
   NavItem,
@@ -66,6 +67,9 @@ export default class App extends Component {
           </li>
         </ul>
         <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
           <Route path="/dynamic-programming">
             <DynamicProgramming />
           </Route>
