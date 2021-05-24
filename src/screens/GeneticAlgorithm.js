@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Label, Input, Jumbotron, Badge } from "reactstrap";
+import { Button, Label, Input, Jumbotron, Badge, Spinner } from "reactstrap";
 import geneticAlgorithm from "../algorithms/genetic-algorithm";
 import { Bag } from "../algorithms/knapsack";
 import ObjectUI from "./ObjectUI";
@@ -20,6 +20,7 @@ class InputSection extends Component {
       bestValue: null,
       bestWeight: null,
       duration: 0,
+      loading: false,
     };
   }
 
@@ -37,6 +38,10 @@ class InputSection extends Component {
     console.log(dataset);
     var bag = new Bag(max_weight, dataset);
 
+    this.setState({
+      loading: true,
+    });
+
     let t0 = new Date().getTime();
 
     var solution = geneticAlgorithm({
@@ -52,6 +57,7 @@ class InputSection extends Component {
 
     this.setState({
       duration: t1 - t0,
+      loading: false,
     });
 
     console.log(solution);
@@ -198,10 +204,17 @@ class InputSection extends Component {
           size="lg"
           block
           onClick={this.onClick.bind(this)}
-          disabled={this.state.dataset.length === 0}
+          disabled={this.state.dataset.length === 0 || this.state.loading}
         >
-          Calculate
-        </Button>{" "}
+          {!this.state.loading ? "Calculate" : "Calculating.."}
+          {this.state.loading ? (
+            <Spinner
+              style={{ width: "0.7rem", height: "0.7rem" }}
+              type="grow"
+              color="light"
+            />
+          ) : null}
+        </Button>
         <br />
         <div>
           <h3>Best Value: {this.state.bestValue}</h3>
