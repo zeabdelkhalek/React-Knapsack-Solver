@@ -15,6 +15,7 @@ const geneticAlgorithm = ({
   generation_size,
   crossover_type,
 }) => {
+  const nb_generations_history = [];
   var population = new Population(
     bag,
     mutation_rate,
@@ -24,16 +25,29 @@ const geneticAlgorithm = ({
   generateInitialPopulation(population, generation_size);
   population.calculateFitness();
   var nb_generations = 0;
+  nb_generations_history.push(nb_generations);
+
   while (
     nb_generations < max_iterations_count &&
     !population.isNintyPercentTheSame()
   ) {
     population.generate();
     nb_generations++;
+    nb_generations_history.push(nb_generations);
     population.calculateFitness();
     population.evaluate();
   }
-  return population.best;
+
+  console.log("fiteness histiory", population.fitnessHistory);
+  console.log("generations histiory", nb_generations_history);
+
+  return {
+    best: population.best,
+    graphData: {
+      fitnessHistory: population.fitnessHistory,
+      nb_generations_history,
+    },
+  };
 };
 
 export default geneticAlgorithm;

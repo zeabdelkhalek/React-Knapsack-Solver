@@ -3,6 +3,8 @@ import { Button, Label, Input, Jumbotron, Badge, Spinner } from "reactstrap";
 import geneticAlgorithm from "../algorithms/genetic-algorithm";
 import { Bag } from "../algorithms/knapsack";
 import ObjectUI from "./ObjectUI";
+import Chart from "react-apexcharts";
+import { graphOptions } from "./graphOptions";
 
 class InputSection extends Component {
   constructor(props) {
@@ -21,6 +23,7 @@ class InputSection extends Component {
       bestWeight: null,
       duration: 0,
       loading: false,
+      graphData: null,
     };
   }
 
@@ -44,7 +47,7 @@ class InputSection extends Component {
 
     let t0 = new Date().getTime();
 
-    var solution = geneticAlgorithm({
+    var { best: solution, graphData } = geneticAlgorithm({
       bag,
       max_iterations_count,
       generation_size,
@@ -58,6 +61,7 @@ class InputSection extends Component {
     this.setState({
       duration: t1 - t0,
       loading: false,
+      graphData,
     });
 
     console.log(solution);
@@ -111,6 +115,25 @@ class InputSection extends Component {
   };
 
   render() {
+    const { graphData } = this.state;
+    var series = [];
+
+    if (graphData) {
+      series = [
+        {
+          name: "Population fiteness",
+          data: graphData.fitnessHistory.map((fiteness, index) => {
+            return {
+              x: graphData.nb_generations_history[index],
+              y: fiteness,
+            };
+          }),
+        },
+      ];
+    }
+
+    console.log("sreies", series);
+
     return (
       <div>
         <div className="row">
@@ -231,6 +254,16 @@ class InputSection extends Component {
         <br />
         <div>
           <h3>Duration: {this.state.duration} MS</h3>
+        </div>
+        <div className="mt-4">
+          {graphData && (
+            <Chart
+              type="area"
+              width="1000"
+              series={series}
+              options={graphOptions}
+            />
+          )}
         </div>
       </div>
     );

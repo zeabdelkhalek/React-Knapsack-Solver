@@ -8,6 +8,7 @@ class Population {
     this.totalBenefit = 0;
     this.best = null;
     this.secondBest = null;
+    this.fitnessHistory = [];
   }
 
   // Fill our fitness array with a value for every member of the population
@@ -17,6 +18,8 @@ class Population {
       var benefet = this.population[i].calculateFitness();
       this.totalBenefit += benefet;
     }
+    // save fiteness history to draw the graph
+    this.fitnessHistory.push(this.totalBenefit);
   };
 
   // select a random parent randomly
