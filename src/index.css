@@ -2,4 +2,18 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  background-color: #e9ecef !important;
+  height: 100vh;
+}
+
+.nav {
+  background-color: white !important;
+}
+
+img {
+  margin-top: 50px;
+  position: absolute;
+  left: 50%;
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
 }
