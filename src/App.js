@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import GeneticAlgorithm from "./screens/GeneticAlgorithm";
 import SimulatedAnnealing from "./screens/SimulatedAnnealing";
+import DynamicProgramming from "./screens/DynamicProgramming";
 import {
   Nav,
   NavItem,
@@ -21,8 +22,8 @@ export default class App extends Component {
   render() {
     return (
       <Router>
-        <ul class="nav nav-pills mb-2 p-2">
-          <li class="nav-item">
+        <ul className="nav nav-pills mb-2 p-2">
+          <li className="nav-item">
             <NavLink
               activeClassName="active"
               className="nav-link"
@@ -31,12 +32,12 @@ export default class App extends Component {
               Dynamic Programming
             </NavLink>
           </li>
-          <li class="nav-item">
+          <li className="nav-item">
             <NavLink activeClassName="active" className="nav-link" to="/greedy">
               Greedy
             </NavLink>
           </li>
-          <li class="nav-item">
+          <li className="nav-item">
             <NavLink
               activeClassName="active"
               className="nav-link"
@@ -45,7 +46,7 @@ export default class App extends Component {
               Hill Climbing
             </NavLink>
           </li>
-          <li class="nav-item">
+          <li className="nav-item">
             <NavLink
               activeClassName="active"
               className="nav-link"
@@ -54,7 +55,7 @@ export default class App extends Component {
               Simulated annealing
             </NavLink>
           </li>
-          <li class="nav-item">
+          <li className="nav-item">
             <NavLink
               activeClassName="active"
               className="nav-link"
@@ -66,7 +67,7 @@ export default class App extends Component {
         </ul>
         <Switch>
           <Route path="/dynamic-programming">
-            <SimulatedAnnealing />
+            <DynamicProgramming />
           </Route>
           <Route path="/simulated-annealing">
             <SimulatedAnnealing />
