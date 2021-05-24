@@ -142,7 +142,7 @@ class InputSection extends Component {
           </div>
           <br />
           <div className="col">
-            <Label for="max_iterations_count">Nb Iterations</Label>
+            <Label for="max_iterations_count">Sampling size</Label>
             <Input
               type="number"
               name="max_iterations_count"
