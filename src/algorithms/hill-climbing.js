@@ -113,12 +113,12 @@ function hillclimbing(optVal, maxIter, values, weights, capacity) {
   return hillSol;
 }
 
-export default (bag, max_iterations_count) => {
+export default (bag, max_iterations_count, opt_val) => {
   var capacity = bag.size;
   var values = bag.itemSet.map((item) => item.value);
   var weights = bag.itemSet.map((item) => item.weight);
   var hill = hillclimbing(
-    3000,
+    opt_val,
     max_iterations_count,
     values,
     weights,

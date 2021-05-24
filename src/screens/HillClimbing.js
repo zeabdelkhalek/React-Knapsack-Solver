@@ -18,18 +18,19 @@ class InputSection extends Component {
       bestWeight: null,
       duration: 0,
       max_iterations_count: 20,
+      opt_val: 3000,
     };
   }
 
   onClick = () => {
-    const { max_weight, dataset, max_iterations_count } = this.state;
+    const { max_weight, dataset, max_iterations_count, opt_val } = this.state;
 
     console.log(dataset);
     var bag = new Bag(max_weight, dataset);
 
     let t0 = new Date().getTime();
 
-    var best = hillClimbing(bag, max_iterations_count);
+    var best = hillClimbing(bag, max_iterations_count, opt_val);
 
     let t1 = new Date().getTime();
 
@@ -110,6 +111,17 @@ class InputSection extends Component {
               id="max_iterations_count"
               value={this.state.max_iterations_count}
               onChange={this.onChange.bind(this, "max_iterations_count")}
+            />
+          </div>
+          <br />
+          <div className="col">
+            <Label for="opt_val">OptVal</Label>
+            <Input
+              type="number"
+              name="opt_val"
+              id="opt_val"
+              value={this.state.opt_val}
+              onChange={this.onChange.bind(this, "opt_val")}
             />
           </div>
           <br />
