@@ -8,11 +8,16 @@ export default class Homne extends Component {
         <Jumbotron>
           <h1 className="display-4">Welcome To The Knapsack-Problem Solver</h1>
           <p class="lead">
-            This is a simple hero unit, a simple jumbotron-style component for
-            calling extra attention to featured content or information.
+            Resolving the Knapsack Problem using Dynamic Programming, Heuristics
+            & Meta heuristics, By: <br />
+          </p>
+          <p>
+            - Abdelkhalek Zellat <br />
+            - Oulahcene Abdelhadi <br />
+            - Anis Chebah <br />
           </p>
           <img
-            height="500"
+            height="400"
             src="https://miro.medium.com/max/4298/1*4b1qYRRYPnPvOhT5UIYP1g.png"
           />
         </Jumbotron>
