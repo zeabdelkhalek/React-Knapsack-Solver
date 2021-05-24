@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Button, Label, Input, Jumbotron } from "reactstrap";
+import { Button, Label, Input, Jumbotron, Badge } from "reactstrap";
 import geneticAlgorithm from "../algorithms/genetic-algorithm";
 import { Bag } from "../algorithms/knapsack";
+import ObjectUI from "./ObjectUI";
 
 class InputSection extends Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class InputSection extends Component {
       generation_size: 200,
       mutation_rate: 0.01,
       is_elitism: false,
+      crossover_type: "Random Point",
       dataset: [],
       bestSet: [],
       bestValue: null,
@@ -29,6 +31,7 @@ class InputSection extends Component {
       mutation_rate,
       dataset,
       is_elitism,
+      crossover_type,
     } = this.state;
 
     console.log(dataset);
@@ -42,6 +45,7 @@ class InputSection extends Component {
       generation_size,
       mutation_rate,
       is_elitism,
+      crossover_type,
     });
 
     let t1 = new Date().getTime();
@@ -160,6 +164,20 @@ class InputSection extends Component {
             />
           </div>
           <br />
+          <div className="col">
+            <Label for="crossover_type">Crossover type</Label>
+            <Input
+              type="select"
+              name="crossover_type"
+              id="crossover_type"
+              value={this.state.crossover_type}
+              onChange={this.onChange.bind(this, "crossover_type")}
+            >
+              <option>Random Point</option>
+              <option>Uniform</option>
+            </Input>
+          </div>
+          <br />
         </div>
         <br />
         <div className="row">
@@ -193,17 +211,9 @@ class InputSection extends Component {
         </div>
         <div>
           <h3>Objects:</h3>
-          <span>
-            {this.state.bestSet.map((item, index) => {
-              return (
-                <a key={index} style={{ marginRight: "6%" }}>
-                  {" "}
-                  [Weight: {item.getItem().weight},Value: {item.getItem().value}
-                  ]
-                </a>
-              );
-            })}
-          </span>
+          {this.state.bestSet.map((item, index) => (
+            <ObjectUI item={item} key={index} />
+          ))}
         </div>
         <br />
         <div>

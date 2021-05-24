@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Button, Label, Input, Jumbotron } from "reactstrap";
+import { Button, Label, Input, Jumbotron, Badge } from "reactstrap";
 import { Bag } from "../algorithms/knapsack";
 import simulatedAnnealing from "../algorithms/simulated-annealing";
+import ObjectUI from "./ObjectUI";
 
 class InputSection extends Component {
   constructor(props) {
@@ -182,17 +183,9 @@ class InputSection extends Component {
         </div>
         <div>
           <h3>Objects:</h3>
-          <span>
-            {this.state.bestSet.map((item, index) => {
-              return (
-                <a key={index} style={{ marginRight: "6%" }}>
-                  {" "}
-                  [Weight: {item.getItem().weight},Value: {item.getItem().value}
-                  ]
-                </a>
-              );
-            })}
-          </span>
+          {this.state.bestSet.map((item, index) => (
+            <ObjectUI item={item} key={index} />
+          ))}
         </div>
         <br />
         <div>

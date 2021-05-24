@@ -57,6 +57,19 @@ class Chromosome {
     return child;
   };
 
+  // uniform cross over
+  crossoverUniform = (partner) => {
+    // A new child
+    var child = new Chromosome(this.bag);
+    var mixingRatio = 0.5;
+    // cross over , Half from one, half from the other
+    for (var i = 0; i < this.genes.length; i++) {
+      if (Math.random() < mixingRatio) child.genes[i] = this.genes[i];
+      else child.genes[i] = partner.genes[i];
+    }
+    return child;
+  };
+
   // Based on a mutation probability, picks a new random character
   mutate = (mutationRate) => {
     for (var i = 0; i < this.genes.length; i++) {

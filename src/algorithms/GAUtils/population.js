@@ -1,8 +1,9 @@
 class Population {
-  constructor(bag, mutation_rate, is_elitism) {
+  constructor(bag, mutation_rate, is_elitism, crossover_type) {
     this.population = []; // Array to hold the current population
     this.mutationRate = mutation_rate;
     this.isElitism = is_elitism;
+    this.crossoverType = crossover_type;
     this.bag = bag;
     this.totalBenefit = 0;
     this.best = null;
@@ -44,7 +45,10 @@ class Population {
       var partnerA = this.naturalSelection();
       var partnerB = this.naturalSelection();
       // do cross over
-      var child = partnerA.crossoverRandom(partnerB);
+      var child =
+        this.crossoverType === "Uniform"
+          ? partnerA.crossoverUniform(partnerB)
+          : partnerA.crossoverRandom(partnerB);
       // do mutation
       child.mutate(this.mutationRate);
       // add obtained child

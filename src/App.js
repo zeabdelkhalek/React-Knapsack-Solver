@@ -11,7 +11,6 @@ export default class App extends Component {
   render() {
     return (
       <Router>
-        <Redirect from="/" to="genetic-algorithm" />
         <Switch>
           <Route path="/simulated-annealing">
             <SimulatedAnnealing />
