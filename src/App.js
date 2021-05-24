@@ -10,6 +10,7 @@ import GeneticAlgorithm from "./screens/GeneticAlgorithm";
 import SimulatedAnnealing from "./screens/SimulatedAnnealing";
 import DynamicProgramming from "./screens/DynamicProgramming";
 import Greedy from "./screens/Greedy";
+import HillClimbing from "./screens/HillClimbing";
 import Home from "./screens/Home";
 import {
   Nav,
@@ -76,6 +77,9 @@ export default class App extends Component {
           </Route>
           <Route path="/greedy">
             <Greedy />
+          </Route>
+          <Route path="/hill-climbing">
+            <HillClimbing />
           </Route>
           <Route path="/simulated-annealing">
             <SimulatedAnnealing />
