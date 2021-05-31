@@ -54,6 +54,9 @@ function test_weight(weights, capacity, objects) {
 /*****************************************************************************************************************************************/
 function hillclimbing(optVal, maxIter, values, weights, capacity) {
   console.log("max_iterations_count", maxIter);
+  const valueHistory = [];
+  const iterationsHistory = [];
+
   var iniSol = [],
     round = 0,
     val = 0, // The value of the solution in each iteration .
@@ -75,6 +78,7 @@ function hillclimbing(optVal, maxIter, values, weights, capacity) {
   );
   while (round < maxIter) {
     // delete the object instance and try to improve the solution by the for loop ;
+
     for (i = 0; i < size; i++) {
       if (!tempSol.includes(i)) {
         tempSol[round] = i;
@@ -107,17 +111,21 @@ function hillclimbing(optVal, maxIter, values, weights, capacity) {
       }
       tempSol = Array.from(iniSol);
       hillSol = Array.from(save_sol);
+      // graph data
+      iterationsHistory.push(round);
+      valueHistory.push(evaluate(values, hillSol));
+
       round++;
     }
   }
-  return hillSol;
+  return { hillSol, iterationsHistory, valueHistory };
 }
 
 export default (bag, max_iterations_count, opt_val) => {
   var capacity = bag.size;
   var values = bag.itemSet.map((item) => item.value);
   var weights = bag.itemSet.map((item) => item.weight);
-  var hill = hillclimbing(
+  var { hillSol, iterationsHistory, valueHistory } = hillclimbing(
     opt_val,
     max_iterations_count,
     values,
@@ -125,16 +133,20 @@ export default (bag, max_iterations_count, opt_val) => {
     capacity
   );
 
-  console.log("hill", hill);
+  console.log("hill", hillSol);
 
   const selectedObjects = [];
-  for (let i = 0; i < hill.length; i++) {
-    const index = hill[i];
+  for (let i = 0; i < hillSol.length; i++) {
+    const index = hillSol[i];
     selectedObjects.push(bag.itemSet[index]);
   }
 
   return {
-    opt_value: evaluate(values, hill),
+    opt_value: evaluate(values, hillSol),
     selectedObjects,
+    graphData: {
+      valueHistory,
+      iterationsHistory,
+    },
   };
 };

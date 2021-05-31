@@ -103,7 +103,7 @@ class InputSection extends Component {
     if (graphData) {
       series = [
         {
-          name: "Population fiteness",
+          name: "Sack Value",
           data: graphData.valueHistory.map((value, index) => {
             return {
               x: graphData.temeratureHistory[index],

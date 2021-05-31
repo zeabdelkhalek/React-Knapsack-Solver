@@ -5,7 +5,8 @@ import dynamicProgramming from "../algorithms/dynamic-programming";
 import ObjectUI from "./ObjectUI";
 import greedy from "../algorithms/greedy";
 import hillClimbing from "../algorithms/hill-climbing";
-
+import Chart from "react-apexcharts";
+import { graphOptions } from "./graphOptions";
 class InputSection extends Component {
   constructor(props) {
     super(props);
@@ -19,6 +20,7 @@ class InputSection extends Component {
       duration: 0,
       max_iterations_count: 20,
       opt_val: 3000,
+      graphData: null,
     };
   }
 
@@ -36,6 +38,7 @@ class InputSection extends Component {
 
     this.setState({
       duration: t1 - t0,
+      graphData: best.graphData,
     });
 
     this.setState({
@@ -77,6 +80,23 @@ class InputSection extends Component {
   };
 
   render() {
+    const { graphData } = this.state;
+    var series = [];
+
+    if (graphData) {
+      series = [
+        {
+          name: "Sack value",
+          data: graphData.valueHistory.map((value, index) => {
+            return {
+              x: graphData.iterationsHistory[index],
+              y: value,
+            };
+          }),
+        },
+      ];
+    }
+
     return (
       <div>
         <div className="row">
@@ -152,6 +172,22 @@ class InputSection extends Component {
         <br />
         <div>
           <h3>Duration: {this.state.duration} MS</h3>
+        </div>
+        <div className="mt-4">
+          {graphData && (
+            <Chart
+              type="area"
+              width="1000"
+              series={series}
+              options={{
+                ...graphOptions,
+                title: {
+                  ...graphOptions.title,
+                  text: "The progress of solution value through iterations number",
+                },
+              }}
+            />
+          )}
         </div>
       </div>
     );
