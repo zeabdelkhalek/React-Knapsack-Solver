@@ -11,7 +11,7 @@ class InputSection extends Component {
     super(props);
 
     this.state = {
-      max_weight: 11,
+      max_weight: 1000000,
       max_iterations_count: 1000,
       generation_size: 200,
       mutation_rate: 0.01,
