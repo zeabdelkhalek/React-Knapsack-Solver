@@ -47,17 +47,21 @@ class Population {
     // Refill the population with children from the mating pool
     for (; i < this.population.length; i++) {
       // TODO: cross rate
-      var partnerA = this.naturalSelection();
-      var partnerB = this.naturalSelection();
-      // do cross over
-      var child =
-        this.crossoverType === "Uniform"
-          ? partnerA.crossoverUniform(partnerB)
-          : partnerA.crossoverRandom(partnerB);
-      // do mutation
-      child.mutate(this.mutationRate);
-      // add obtained child
-      newPopulation[i] = child;
+      if (Math.random() <= this.crossRate) {
+        var partnerA = this.naturalSelection();
+        var partnerB = this.naturalSelection();
+        // do cross over
+        var child =
+          this.crossoverType === "Uniform"
+            ? partnerA.crossoverUniform(partnerB)
+            : partnerA.crossoverRandom(partnerB);
+        // do mutation
+        child.mutate(this.mutationRate);
+        // add obtained child
+        newPopulation[i] = child;
+      } else {
+        newPopulation[i] = this.population[i];
+      }
     }
     // update the new generation
     this.population = newPopulation;

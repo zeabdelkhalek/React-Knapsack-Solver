@@ -10,7 +10,6 @@ export const graphOptions = {
     curve: "smooth",
   },
   title: {
-    text: "The progress of through generations number (time)",
     align: "left",
     style: {
       fontSize: "14px",

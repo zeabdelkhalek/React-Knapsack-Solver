@@ -48,7 +48,14 @@ const simulatedAnnealing = ({
   var current_solution = generateInitialSolution(bag);
   var best_solution = current_solution;
 
+  // graph data
+  const valueHistory = [];
+  const temeratureHistory = [];
+
   while (temperature > end_temperature) {
+    temeratureHistory.push(temperature);
+    valueHistory.push(bag.getValueForList(best_solution));
+
     for (let i = 0; i < max_iterations_count; i++) {
       // choose neighbourhood solution
       var modifiedSolution = generateSolutionFromNeighbour(
@@ -79,7 +86,13 @@ const simulatedAnnealing = ({
     }
     temperature *= cooling_factor;
   }
-  return best_solution;
+  return {
+    best: best_solution,
+    graphData: {
+      valueHistory,
+      temeratureHistory,
+    },
+  };
 };
 
 export default simulatedAnnealing;

@@ -3,6 +3,8 @@ import { Button, Label, Input, Jumbotron, Badge } from "reactstrap";
 import { Bag } from "../algorithms/knapsack";
 import simulatedAnnealing from "../algorithms/simulated-annealing";
 import ObjectUI from "./ObjectUI";
+import Chart from "react-apexcharts";
+import { graphOptions } from "./graphOptions";
 
 class InputSection extends Component {
   constructor(props) {
@@ -19,6 +21,7 @@ class InputSection extends Component {
       bestValue: null,
       bestWeight: null,
       duration: 0,
+      graphData: null,
     };
   }
 
@@ -37,7 +40,7 @@ class InputSection extends Component {
 
     let t0 = new Date().getTime();
 
-    var best = simulatedAnnealing({
+    var { best, graphData } = simulatedAnnealing({
       bag,
       start_temperature,
       end_temperature,
@@ -49,6 +52,7 @@ class InputSection extends Component {
 
     this.setState({
       duration: t1 - t0,
+      graphData,
     });
 
     let bestSolution = bag.printSolution(best);
@@ -93,6 +97,22 @@ class InputSection extends Component {
   };
 
   render() {
+    const { graphData } = this.state;
+    var series = [];
+
+    if (graphData) {
+      series = [
+        {
+          name: "Population fiteness",
+          data: graphData.valueHistory.map((value, index) => {
+            return {
+              x: graphData.temeratureHistory[index],
+              y: value,
+            };
+          }),
+        },
+      ];
+    }
     return (
       <div>
         <div className="row">
@@ -190,6 +210,22 @@ class InputSection extends Component {
         <br />
         <div>
           <h3>Duration: {this.state.duration} MS</h3>
+        </div>
+        <div className="mt-4">
+          {graphData && (
+            <Chart
+              type="area"
+              width="1000"
+              series={series}
+              options={{
+                ...graphOptions,
+                title: {
+                  ...graphOptions.title,
+                  text: "The progress of solution value through temeprature changes",
+                },
+              }}
+            />
+          )}
         </div>
       </div>
     );

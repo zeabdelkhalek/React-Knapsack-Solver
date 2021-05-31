@@ -135,8 +135,6 @@ class InputSection extends Component {
       ];
     }
 
-    console.log("sreies", series);
-
     return (
       <div>
         <div className="row">
@@ -275,7 +273,13 @@ class InputSection extends Component {
               type="area"
               width="1000"
               series={series}
-              options={graphOptions}
+              options={{
+                ...graphOptions,
+                title: {
+                  ...graphOptions.title,
+                  text: "The progress of population fitness through generations number (time)",
+                },
+              }}
             />
           )}
         </div>

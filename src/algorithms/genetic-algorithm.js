@@ -40,9 +40,6 @@ const geneticAlgorithm = ({
     population.evaluate();
   }
 
-  console.log("fiteness histiory", population.fitnessHistory);
-  console.log("generations histiory", nb_generations_history);
-
   return {
     best: population.best,
     graphData: {
