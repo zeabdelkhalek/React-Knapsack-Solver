@@ -14,13 +14,15 @@ const geneticAlgorithm = ({
   mutation_rate,
   generation_size,
   crossover_type,
+  cross_rate,
 }) => {
   const nb_generations_history = [];
   var population = new Population(
     bag,
     mutation_rate,
     is_elitism,
-    crossover_type
+    crossover_type,
+    cross_rate
   );
   generateInitialPopulation(population, generation_size);
   population.calculateFitness();

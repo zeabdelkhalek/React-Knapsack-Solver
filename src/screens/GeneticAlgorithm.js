@@ -15,6 +15,7 @@ class InputSection extends Component {
       max_iterations_count: 1000,
       generation_size: 200,
       mutation_rate: 0.01,
+      cross_rate: 0.9,
       is_elitism: false,
       crossover_type: "Random Point",
       dataset: [],
@@ -36,6 +37,7 @@ class InputSection extends Component {
       dataset,
       is_elitism,
       crossover_type,
+      cross_rate,
     } = this.state;
 
     console.log(dataset);
@@ -54,6 +56,7 @@ class InputSection extends Component {
       mutation_rate,
       is_elitism,
       crossover_type,
+      cross_rate,
     });
 
     let t1 = new Date().getTime();
@@ -190,6 +193,17 @@ class InputSection extends Component {
               id="mutation_rate"
               value={this.state.mutation_rate}
               onChange={this.onChange.bind(this, "mutation_rate")}
+            />
+          </div>
+          <br />
+          <div className="col">
+            <Label for="cross_rate">Cross rate</Label>
+            <Input
+              type="number"
+              name="cross_rate"
+              id="cross_rate"
+              value={this.state.cross_rate}
+              onChange={this.onChange.bind(this, "cross_rate")}
             />
           </div>
           <br />

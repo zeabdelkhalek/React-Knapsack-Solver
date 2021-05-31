@@ -13,6 +13,7 @@ class InputSection extends Component {
       max_weight: 10,
       dataset: [],
       bestSet: [],
+      greedy_method: "Greedy profit",
       bestValue: null,
       bestWeight: null,
       duration: 0,
@@ -20,14 +21,14 @@ class InputSection extends Component {
   }
 
   onClick = () => {
-    const { max_weight, dataset } = this.state;
+    const { max_weight, dataset, greedy_method } = this.state;
 
     console.log(dataset);
     var bag = new Bag(max_weight, dataset);
 
     let t0 = new Date().getTime();
 
-    var best = greedy(bag);
+    var best = greedy(bag, greedy_method);
 
     let t1 = new Date().getTime();
 
@@ -86,6 +87,21 @@ class InputSection extends Component {
               value={this.state.max_weight}
               onChange={this.onChange.bind(this, "max_weight")}
             />
+          </div>
+          <br />
+          <div className="col">
+            <Label for="greedy_method">Greedy method</Label>
+            <Input
+              type="select"
+              name="greedy_method"
+              id="greedy_method"
+              value={this.state.greedy_method}
+              onChange={this.onChange.bind(this, "greedy_method")}
+            >
+              <option>Greedy profit</option>
+              <option>Greedy weight</option>
+              <option>Greedy efficiency</option>
+            </Input>
           </div>
           <br />
           <div className="col">

@@ -1,7 +1,8 @@
 class Population {
-  constructor(bag, mutation_rate, is_elitism, crossover_type) {
+  constructor(bag, mutation_rate, is_elitism, crossover_type, cross_rate) {
     this.population = []; // Array to hold the current population
     this.mutationRate = mutation_rate;
+    this.crossRate = cross_rate;
     this.isElitism = is_elitism;
     this.crossoverType = crossover_type;
     this.bag = bag;
@@ -45,6 +46,7 @@ class Population {
     }
     // Refill the population with children from the mating pool
     for (; i < this.population.length; i++) {
+      // TODO: cross rate
       var partnerA = this.naturalSelection();
       var partnerB = this.naturalSelection();
       // do cross over

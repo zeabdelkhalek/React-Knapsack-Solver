@@ -48,17 +48,14 @@ const simulatedAnnealing = ({
   var current_solution = generateInitialSolution(bag);
   var best_solution = current_solution;
 
-  console.log("random solution", current_solution);
-
   while (temperature > end_temperature) {
-    console.log("temperature", temperature);
     for (let i = 0; i < max_iterations_count; i++) {
       // choose neighbourhood solution
       var modifiedSolution = generateSolutionFromNeighbour(
         bag,
         current_solution
       );
-      // console.log("modifiedSolution", modifiedSolution);
+
       const current_profit = bag.getValueForList(current_solution);
       const neighbour_profit = bag.getValueForList(modifiedSolution);
 
@@ -78,7 +75,6 @@ const simulatedAnnealing = ({
         bag.getValueForList(best_solution)
       ) {
         best_solution = current_solution;
-        console.log("best_solution", best_solution);
       }
     }
     temperature *= cooling_factor;
