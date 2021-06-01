@@ -10,7 +10,7 @@ class InputSection extends Component {
     super(props);
 
     this.state = {
-      max_weight: 10,
+      max_weight: 1000000,
       dataset: [],
       bestSet: [],
       greedy_method: "Greedy profit",

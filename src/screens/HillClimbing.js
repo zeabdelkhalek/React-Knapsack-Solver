@@ -12,7 +12,7 @@ class InputSection extends Component {
     super(props);
 
     this.state = {
-      max_weight: 10,
+      max_weight: 1000000,
       dataset: [],
       bestSet: [],
       bestValue: null,
@@ -135,7 +135,7 @@ class InputSection extends Component {
           </div>
           <br />
           <div className="col">
-            <Label for="opt_val">OptVal</Label>
+            <Label for="opt_val">Optimum value</Label>
             <Input
               type="number"
               name="opt_val"
