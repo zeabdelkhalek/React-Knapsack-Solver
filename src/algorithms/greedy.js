@@ -66,7 +66,7 @@ function get_optimal_value_profit(capacity, weights, values) {
     valWeight[i][1] = weights[i];
     valWeight[i][0] = values[i];
   }
-  weights.sort((a, b) => b[0] - a[0]);
+  values.sort((a, b) => b[0] - a[0]);
   console.log(valWeight);
   for (i = 0; i < numItems; i++) {
     if (valWeight[i][1] <= capacity) {
