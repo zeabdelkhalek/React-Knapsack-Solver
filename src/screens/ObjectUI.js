@@ -9,7 +9,7 @@ class ObjectUI extends Component {
     const { item } = this.props;
     return (
       <div style={{ marginRight: "6%" }}>
-        <Badge color="secondary">Index:{item.getItem().index}</Badge>
+        <Badge color="secondary">ID:{item.getItem().index}</Badge>
         <Badge color="danger">Weight:{item.getItem().weight}</Badge>
         <Badge color="success">Value:{item.getItem().value}</Badge>
       </div>
