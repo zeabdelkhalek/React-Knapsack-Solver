@@ -16,6 +16,7 @@ class InputSection extends Component {
       end_temperature: 50,
       max_iterations_count: 90,
       cooling_factor: 0.7,
+      initial_solution_method: "Random",
       dataset: [],
       bestSet: [],
       bestValue: null,
@@ -33,6 +34,7 @@ class InputSection extends Component {
       max_weight,
       max_iterations_count,
       dataset,
+      initial_solution_method,
     } = this.state;
 
     console.log(dataset);
@@ -46,6 +48,7 @@ class InputSection extends Component {
       end_temperature,
       cooling_factor,
       max_iterations_count,
+      initial_solution_method,
     });
 
     let t1 = new Date().getTime();
@@ -181,6 +184,20 @@ class InputSection extends Component {
               value={this.state.cooling_factor}
               onChange={this.onChange.bind(this, "cooling_factor")}
             />
+          </div>
+          <br />
+          <div className="col">
+            <Label for="initial_solution_method">Initial solution method</Label>
+            <Input
+              type="select"
+              name="initial_solution_method"
+              id="initial_solution_method"
+              value={this.state.initial_solution_method}
+              onChange={this.onChange.bind(this, "initial_solution_method")}
+            >
+              <option>Random</option>
+              <option>Greedy</option>
+            </Input>
           </div>
           <br />
         </div>

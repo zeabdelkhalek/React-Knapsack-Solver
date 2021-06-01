@@ -2,7 +2,7 @@ function getRandomAsInt(min, max) {
   return Math.floor(Math.random() * (max - min) + +min);
 }
 
-const generateInitialSolution = (bag) => {
+const generateGreedyInitialSolution = (bag) => {
   const solution = [];
   const sortedItems = bag.itemSet.sort((a, b) => {
     const v1 = a.getItem().value / a.getItem().weight;
@@ -17,6 +17,22 @@ const generateInitialSolution = (bag) => {
     if (remainingWeight >= item.value) {
       solution.push(item);
       remainingWeight -= item.value;
+    }
+  }
+
+  return solution;
+};
+
+const generateRandomInitialSolution = (bag) => {
+  const solution = [];
+
+  for (let i = 0; i < bag.itemSet.length; i++) {
+    let item = bag.getRandomItemFormItemSet(solution);
+    solution.push(item);
+
+    while (bag.checkOverweight(solution)) {
+      var dropIndex = getRandomAsInt(0, solution.length);
+      solution.removeItem(dropIndex);
     }
   }
 
@@ -41,11 +57,15 @@ const simulatedAnnealing = ({
   end_temperature,
   cooling_factor,
   max_iterations_count,
+  initial_solution_method,
 }) => {
   var temperature = start_temperature;
 
   // generate random solution
-  var current_solution = generateInitialSolution(bag);
+  var current_solution =
+    initial_solution_method === "Random"
+      ? generateRandomInitialSolution(bag)
+      : generateGreedyInitialSolution(bag);
   var best_solution = current_solution;
 
   // graph data
