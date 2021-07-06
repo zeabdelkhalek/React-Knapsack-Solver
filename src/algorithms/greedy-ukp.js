@@ -30,3 +30,24 @@ export const densityGreedy = (bag) => {
 
   return solution;
 };
+
+export const weightGreedy = (bag) => {
+  const solution = [];
+
+  const sortedItems = bag.itemSet.sort((a, b) => {
+    const w1 = a.getItem().weight;
+    const w2 = b.getItem().weight;
+    return w1 - w2;
+  });
+
+  console.log("sorted items", sortedItems);
+
+  let remainingWeight = bag.size;
+  const x1 = Math.floor(remainingWeight / sortedItems[0].weight);
+  solution.push({
+    ...sortedItems[0],
+    count: x1,
+  });
+
+  return solution;
+};
