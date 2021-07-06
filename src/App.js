@@ -9,7 +9,9 @@ import {
 import GeneticAlgorithm from "./screens/GeneticAlgorithm";
 import SimulatedAnnealing from "./screens/SimulatedAnnealing";
 import DynamicProgramming from "./screens/DynamicProgramming";
+import DynamicProgrammingUKP from "./screens/DynamicProgrammingUKP";
 import Greedy from "./screens/Greedy";
+import GreedyUKP from "./screens/GreedyUKP";
 import HillClimbing from "./screens/HillClimbing";
 import Home from "./screens/Home";
 import {
@@ -75,8 +77,14 @@ export default class App extends Component {
           <Route path="/dynamic-programming">
             <DynamicProgramming />
           </Route>
+          <Route path="/dynamic-programming-ukp">
+            <DynamicProgrammingUKP />
+          </Route>
           <Route path="/greedy">
             <Greedy />
+          </Route>
+          <Route path="/greedy-ukp">
+            <GreedyUKP />
           </Route>
           <Route path="/hill-climbing">
             <HillClimbing />

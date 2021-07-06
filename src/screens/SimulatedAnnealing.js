@@ -14,7 +14,7 @@ class InputSection extends Component {
       max_weight: 1000000,
       start_temperature: 1000,
       end_temperature: 50,
-      max_iterations_count: 90,
+      max_iterations_count: 200,
       cooling_factor: 0.7,
       initial_solution_method: "Random",
       dataset: [],

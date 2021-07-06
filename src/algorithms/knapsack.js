@@ -3,6 +3,7 @@ class Item {
     this.weight = w;
     this.value = v;
     this.index = index;
+    this.count = 0
   }
 
   getItem = () => {
@@ -10,6 +11,7 @@ class Item {
       weight: this.weight,
       value: this.value,
       index: this.index,
+      count: this.count
     };
   };
 }

@@ -42,44 +42,62 @@ export default function dynamicProgramming({ bag }) {
   return ObjetsChoisis;
 }
 
-// function ProgDynam_avec_exemplaires() {
-//   console.log(
-//     "\n\n******************************  Programmation dynamique avec plusieurs instances:  ******************************\n"
-//   );
+export function dynamicProgrammingUKP({ bag }) {
+  let PoidsMax = bag.size
+  const Objets = bag.itemSet;
 
-//   let Vect = [PoidsMax + 1];
-//   let ObjetsChoisis = [PoidsMax + 1];
+  let Vect = [PoidsMax + 1];
+  let ObjetsChoisis = [PoidsMax + 1];
 
-//   for (i = 0; i <= PoidsMax; i++) {
-//     Vect[i] = 0;
-//     ObjetsChoisis[i] = "";
-//   }
-//   for (i = 0; i <= PoidsMax; i++) {
-//     for (j = 0; j < Objets.length; j++) {
-//       if (Objets[j].poids <= i) {
-//         Vect[i] = Math.max(Vect[i], Vect[i - Objets[j].poids] + Objets[j].gain);
+  for (let i = 0; i <= PoidsMax; i++) {
+    Vect[i] = 0;
+    ObjetsChoisis[i] = "";
+  }
+  for (let i = 0; i <= PoidsMax; i++) {
+    for (let j = 0; j < Objets.length; j++) {
+      if (Objets[j].weight <= i) {
+        Vect[i] = Math.max(Vect[i], Vect[i - Objets[j].weight] + Objets[j].value);
 
-//         if (Vect[i - Objets[j].poids] + Objets[j].gain >= Vect[i]) {
-//           ObjetsChoisis[i] =
-//             ObjetsChoisis[i - Objets[j].poids] + " " + Objets[j].nom;
-//         }
-//       }
-//     }
-//   }
-//   console.log(Vect);
+        if (Vect[i - Objets[j].weight] + Objets[j].value >= Vect[i]) {
+          ObjetsChoisis[i] =
+            ObjetsChoisis[i - Objets[j].weight] + " " + Objets[j].index;
+        }
+      }
+    }
+  }
 
-//   for (i = 0; i < Vect.length; i++) {
-//     console.log(Vect[i] + ":" + ObjetsChoisis[i]);
-//   }
+  console.log("\nLes objets choisis sont : \n");
+  console.log(ObjetsChoisis);
+  console.log(ObjetsChoisis[PoidsMax]);
+  console.log(
+    "\n--------------------------  Gain maximum = " +
+      Vect[PoidsMax] +
+      "  --------------------------\n"
+  );
 
-//   console.log("\nLes objets choisis sont : \n");
-//   console.log(ObjetsChoisis[PoidsMax]);
-//   console.log(
-//     "\n--------------------------  Gain maximum = " +
-//       Vect[PoidsMax] +
-//       "  --------------------------\n"
-//   );
-// }
+  const indexes = ObjetsChoisis[PoidsMax].split(" ")
+  const itemSet = []
+
+  for (let i = 1; i < indexes.length; i++) {
+    const element = Number(indexes[i])
+    const object = bag.itemSet.find(o => o.index === element)
+    const index = itemSet.findIndex(item => item.index === object.index)
+    if (index !== -1) {
+      itemSet[index].count++
+    } else {
+      itemSet.push({
+        ...object,
+        count: 1
+      })
+    }
+  }
+
+
+  return { 
+    itemSet,
+    bestValue: Vect[PoidsMax],
+  };
+}
 
 /************************************MAIN*********************************************/
 
