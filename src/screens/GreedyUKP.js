@@ -3,7 +3,7 @@ import { Button, Label, Input, Jumbotron, Badge } from "reactstrap";
 import { Bag } from "../algorithms/knapsack";
 import dynamicProgramming from "../algorithms/dynamic-programming";
 import ObjectUI from "./ObjectUI";
-import { weightGreedy } from "../algorithms/greedy-ukp";
+import { valueGreedy } from "../algorithms/greedy-ukp";
 
 class InputSection extends Component {
   constructor(props) {
@@ -27,7 +27,7 @@ class InputSection extends Component {
 
     let t0 = new Date().getTime();
 
-    var best = weightGreedy(bag);
+    var best = valueGreedy(bag);
 
     let t1 = new Date().getTime();
 
