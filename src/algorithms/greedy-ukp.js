@@ -1,3 +1,5 @@
+import { isEqual } from "lodash";
+
 export const densityGreedy = (bag) => {
   const solution = [];
 
@@ -81,6 +83,38 @@ export const valueGreedy = (bag) => {
         count: xi,
       });
       remainingWeight = remainingWeight - xi * item.weight;
+    }
+  }
+
+  return solution;
+};
+
+export const totalValueGreedy = (bag) => {
+  const solution = [];
+  var tmp = new Array(bag.itemSet.length).fill(0);
+  var sol = new Array(bag.itemSet.length).fill(0);
+  var gain = 0;
+
+  var remainingWeight = bag.size;
+
+  while (remainingWeight > 0) {
+    for (let i = 0; i < bag.itemSet.length; i++) {
+      const item = bag.itemSet[i];
+      tmp[i] = item.value * Math.floor(remainingWeight / item.weight);
+    }
+    if (isEqual(tmp, new Array(bag.itemSet.length).fill(0))) break;
+    let indmax = tmp.indexOf(Math.max(...tmp));
+    gain = tmp[indmax] + gain;
+    if (sol[indmax] == 0) {
+      sol[indmax] = Math.floor(remainingWeight / bag.itemSet[indmax].weight);
+      if (sol[indmax] != 0) {
+        solution.push({
+          ...bag.itemSet[indmax],
+          count: sol[indmax],
+        });
+      }
+      remainingWeight =
+        remainingWeight - sol[indmax] * bag.itemSet[indmax].weight;
     }
   }
 
