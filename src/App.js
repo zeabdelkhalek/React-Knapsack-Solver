@@ -13,6 +13,7 @@ import DynamicProgrammingUKP from "./screens/DynamicProgrammingUKP";
 import Greedy from "./screens/Greedy";
 import GreedyUKP from "./screens/GreedyUKP";
 import HillClimbing from "./screens/HillClimbing";
+import HyperHeuristic from "./screens/HyperHeuristic";
 import Home from "./screens/Home";
 import {
   Nav,
@@ -69,6 +70,15 @@ export default class App extends Component {
               Genetic algorithm
             </NavLink>
           </li>
+          <li className="nav-item">
+            <NavLink
+              activeClassName="active"
+              className="nav-link"
+              to="/hyper-heuristic"
+            >
+              Hyper Heuristic
+            </NavLink>
+          </li>
         </ul>
         <Switch>
           <Route exact path="/">
@@ -94,6 +104,9 @@ export default class App extends Component {
           </Route>
           <Route path="/genetic-algorithm">
             <GeneticAlgorithm />
+          </Route>
+          <Route path="/hyper-heuristic">
+            <HyperHeuristic />
           </Route>
         </Switch>
       </Router>

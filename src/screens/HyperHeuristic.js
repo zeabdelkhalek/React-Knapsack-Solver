@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Button, Label, Input, Jumbotron, Badge } from "reactstrap";
 import { Bag } from "../algorithms/knapsack";
-import dynamicProgramming from "../algorithms/dynamic-programming";
+import HyperHeuristicTabu from "../algorithms/hyper-heuristic";
 import ObjectUI from "./ObjectUI";
 import {
   totalValueGreedy,
@@ -15,30 +15,48 @@ class InputSection extends Component {
     super(props);
 
     this.state = {
-      max_weight: 15,
+      max_weight: 30,
       dataset: [],
       bestSet: [],
       bestValue: null,
       bestWeight: null,
       duration: 0,
+      max_combination_length: 15,
+      max_iterations: 100,
+      max_no_change: 100,
     };
   }
 
   onClick = () => {
-    const { max_weight, dataset } = this.state;
+    const {
+      max_weight,
+      dataset,
+      max_combination_length,
+      max_iterations,
+      max_no_change,
+    } = this.state;
 
     console.log(dataset);
     var bag = new Bag(max_weight, dataset);
 
     let t0 = new Date().getTime();
 
-    var best = densityGreedy(bag);
+    let hyper = new HyperHeuristicTabu({
+      bag,
+      max_combination_length,
+      max_iterations,
+      max_no_change,
+    });
+
+    var best = hyper.run();
 
     let t1 = new Date().getTime();
 
     this.setState({
       duration: t1 - t0,
     });
+
+    console.log("best", best);
 
     this.setState({
       bestSet: best,
@@ -101,6 +119,42 @@ class InputSection extends Component {
           </div>
         </div>
         <br />
+        <div className="row">
+          <div className="col">
+            <Label for="max_combination_length">Max combination length</Label>
+            <Input
+              type="number"
+              name="max_combination_length"
+              id="max_combination_length"
+              value={this.state.max_combination_length}
+              onChange={this.onChange.bind(this, "max_combination_length")}
+            />
+          </div>
+          <br />
+          <div className="col">
+            <Label for="max_iterations">Max Iterations</Label>
+            <Input
+              type="number"
+              name="max_iterations"
+              id="max_iterations"
+              value={this.state.max_iterations}
+              onChange={this.onChange.bind(this, "max_iterations")}
+            />
+          </div>
+          <br />
+          <div className="col">
+            <Label for="max_no_change">Max with no change</Label>
+            <Input
+              type="number"
+              name="max_no_change"
+              id="max_no_change"
+              value={this.state.max_no_change}
+              onChange={this.onChange.bind(this, "max_no_change")}
+            />
+          </div>
+          <br />
+        </div>
+        <br />
         <Button
           color="primary"
           size="lg"
@@ -132,13 +186,13 @@ class InputSection extends Component {
   }
 }
 
-class GreedyUKP extends Component {
+class HyperHeuristic extends Component {
   render() {
     return (
       <div className="container">
         <Jumbotron>
           <h1 className="display-9 text-center">
-            Unbounded Knapsack Problem with Greedy heuristic
+            Unbounded Knapsack Problem with Hyper Heuristic
           </h1>
         </Jumbotron>
         <InputSection />
@@ -147,4 +201,4 @@ class GreedyUKP extends Component {
   }
 }
 
-export default GreedyUKP;
+export default HyperHeuristic;
